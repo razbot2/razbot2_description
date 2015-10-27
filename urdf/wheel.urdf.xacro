@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="razbot2" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Wheel macro definition. The entirety of the code below is reproduced
+  whenever the macro is called. We use 'params' to add additional arguments
+  to the macro call, which can be simple parameters, or entire code blocks.
+  See http://wiki.ros.org/xacro for more details. -->
+  <xacro:macro name="razbot2_wheel" params="wheel_prefix flip *joint_pose">
+
+    <!-- Wheel link -->
+    <link name="${wheel_prefix}_wheel_link">
+
+      <visual>
+        <!-- math-magic to get the wheel STLs to align -->
+        <origin xyz="${flip*wheel_radius} ${-flip*wheel_width/2} ${-wheel_radius}" rpy="${M_PI/2} 0 ${flip*M_PI/2+M_PI/2}" />
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/wheel.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+        <geometry>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+
+    </link>
+
+    <!-- This block provides the simulator (Gazebo) with information on a few additional
+    physical properties. See http://gazebosim.org/tutorials/?tut=ros_urdf for more-->
+    <gazebo reference="${wheel_prefix}_wheel_link">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- This block connects the wheel joint to an actuator (motor), which informs both
+    simulation and visualization of the robot -->
+    <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${wheel_prefix}_wheel_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="${wheel_prefix}_wheel">
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+    <!-- Wheel to base joint. This joint is continuous so that the wheel can
+    spin freely -->
+    <joint name="${wheel_prefix}_wheel" type="continuous">
+      <parent link="base_link"/>
+      <child link="${wheel_prefix}_wheel_link"/>
+      <xacro:insert_block name="joint_pose"/>
+      <axis xyz="0 1 0" rpy="0 0 0" />
+    </joint>
+
+  </xacro:macro>
+</robot>
