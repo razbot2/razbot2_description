@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <robot name="razbot2_arm" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="razbot2_arm" params="prefix *origin">
+  <xacro:macro name="razbot2_arm" params="prefix mounting_link *origin">
 
     <!-- Arm base link and joint to link_0 -->
     <link name="${prefix}razbot2_arm_base_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0 "/>
+        <xacro:insert_block name="origin"/>
         <geometry>
           <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_base_link.stl" />
         </geometry>
         <material name="Grey" />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <xacro:insert_block name="origin"/>
         <geometry>
           <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_base_link.stl" />
         </geometry>
@@ -33,11 +33,210 @@
       <kd value="1.0" />
       <material>Gazebo/Grey</material>
     </gazebo>
+    <joint name="${prefix}razbot2_arm_mounting_joint" type="revolute">
+      <parent link="${mounting_link}"/>
+      <child link="${prefix}razbot2_arm_base_link"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
     <joint name="${prefix}razbot2_arm_base_link_to_0_joint" type="revolute">
       <parent link="${prefix}razbot2_arm_base_link"/>
       <child link="${prefix}razbot2_arm_link_0"/>
       <axis xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
+   <!-- razbot2_arm_link_0 --> 
+   <link name="${prefix}razbot2_arm_link_0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0 "/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_0.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_0.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}razbot2_arm_link_0">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <joint name="${prefix}razbot2_arm_link_0_to_link_1" type="revolute">
+      <parent link="${prefix}razbot2_arm_link_0"/>
+      <child link="${prefix}razbot2_arm_link_1"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- razbot2_arm_link_1 -->
+    <link name="${prefix}razbot2_arm_link_1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0 "/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_1.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_1.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}razbot2_arm_link-2">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <joint name="${prefix}razbot2_arm_link_1_to_link_2" type="revolute">
+      <parent link="${prefix}razbot2_arm_link_1"/>
+      <child link="${prefix}razbot2_arm_link_2"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+   <!-- razbot2_arm_link_3 -->
+   <link name="${prefix}razbot2_arm_link_3">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0 "/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_3.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_arm_link_3.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}razbot2_arm_link_3">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <joint name="${prefix}razbot2_arm_link_1_to_link_2" type="revolute">
+      <parent link="${prefix}razbot2_arm_link_2"/>
+      <child link="${prefix}razbot2_arm_link_3"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+   <!-- Gripper mounting plate -->
+   <link name="${prefix}razbot2_arm_gripper_mounting_plate">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0 "/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_gripper_mounting_plate.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_gripper_mounting_plate.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}razbot2_gripper_mounting_plate">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <joint name="${prefix}razbot2_arm_to_gripper_plate" type="fixed">
+      <parent link="${prefix}razbot2_arm_link_3"/>
+      <child link="${prefix}razbot2_arm_gripper_mounting_plate"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- Left finger gripper -->
+    <xacro:gripper_finger prefix="left">
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:gripper_finger>
+
+    <!-- Right finger gripper -->
+    <xacro:gripper_finger prefix="right">
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:gripper_finger>    
+
   </xacro:macro>
+
+  <!-- gripper finger xacro -->
+   <xacro:macro name="gripper_finger" params="prefix *origin">
+      <link name="${prefix}razbot2_gripper_finger">
+      <visual>
+        <xacro:insert_block name="origin"/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_gripper_finger.stl" />
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <xacro:insert_block name="origin"/>
+        <geometry>
+          <mesh filename="package://razbot2_description/meshes/razbot2_arm/razbot2_gripper_finger.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.1 0"/>
+        <mass value="0.15" />
+        <inertia  ixx="0.0001" ixy="0" ixz="0"
+                  iyy="0.0001" iyz="0"
+                  izz="0.0001" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}razbot2_gripper_finger">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <joint name="${prefix}razbot2_gripper_finger" type="prismatic">
+      <parent link="razbot2_arm_gripper_mounting_plate"/>
+      <child link="${prefix}razbot2_gripper_finger"/>
+      <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+   </xacro:macro>
 </robot>

@@ -101,8 +101,23 @@
     <origin xyz="${-wheel_base/2} ${-wheel_track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:razbot2_wheel>
 
+  <link name="razbot2_mounting_plate">
+     <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.15 18.5 0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+         <box size="1.15 18.5 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
   <!-- Add the razbot2 arm onto the platform --> 
-  <xacro:razbot2_arm arm_prefix="">
+  <xacro:razbot2_arm arm_prefix="" mounting_link="razbot2_mounting_plate">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:razbot2_arm>
 
