@@ -117,7 +117,7 @@
   </link>
 
   <!-- Add the razbot2 arm onto the platform --> 
-  <xacro:razbot2_arm arm_prefix="" mounting_link="razbot2_mounting_plate">
+  <xacro:razbot2_arm prefix="" mounting_link="razbot2_mounting_plate">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:razbot2_arm>
 
