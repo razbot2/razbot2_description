@@ -3,6 +3,9 @@
 
   <!-- Include wheel macro -->
   <xacro:include filename="$(find razbot2_description)/urdf/wheel.urdf.xacro" />
+  
+  <!-- Include arm macro -->
+  <xacro:include filename="$(find razbot2_description)/urdf/razbot2_arm/razbot2_arm.urdf.xacro"/>
 
   <!-- <property> tags encode important robot paremeters. It's helpful to break
   these out from the rest of the description for easy manipulation -->
@@ -50,7 +53,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://razbot2_description/meshes/base.stl" />
+        <mesh filename="package://razbot2_description/meshes/razbot2_base/base.stl" />
       </geometry>
       <material name="Blue" />
     </visual>
@@ -97,5 +100,11 @@
   <xacro:razbot2_wheel wheel_prefix="rear_right" flip="1">
     <origin xyz="${-wheel_base/2} ${-wheel_track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:razbot2_wheel>
+
+  <!-- Add the razbot2 arm onto the platform --> 
+  <xacro:razbot2_arm arm_prefix="">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:razbot2_arm>
+
 
 </robot>
